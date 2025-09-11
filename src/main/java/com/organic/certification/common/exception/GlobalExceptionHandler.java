@@ -35,6 +35,11 @@ public class GlobalExceptionHandler {
         return buildErrorResponse(exception, HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(GeneralException.class)
+    public ResponseEntity<ErrorResponse> handleExternalServiceException(GeneralException exception) {
+        return buildErrorResponse(exception, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
     private ResponseEntity<ErrorResponse> buildErrorResponse(Exception exception, HttpStatus status) {
             var message =  exception.getMessage() != null ?  exception.getMessage() : "An unexpected error occurred.";
             if(status == HttpStatus.INTERNAL_SERVER_ERROR) {
