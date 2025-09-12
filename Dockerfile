@@ -1,21 +1,16 @@
-FROM ubuntu:latest
-LABEL authors="LENOVO"
-
-ENTRYPOINT ["java", "-jar", "app.jar"]
-
-# Build 1: Build
-From maven:3.9.6-amazoncorretto-17 AS build
+# Stage 1: Build
+FROM maven:3.9.6-amazoncorretto-17 AS build
 WORKDIR /build
 
-# Copy only dependency files first
+# Copy only dependency files first (better caching)
 COPY pom.xml .
 COPY .mvn .mvn
-COPY  mvnw mvnw
+COPY mvnw mvnw
 COPY mvnw.cmd mvnw.cmd
 
 RUN mvn dependency:go-offline -B
 
-# Copy source last (avoids re-downloading deps on small code changes)
+# Copy source last
 COPY src src
 RUN mvn clean package -DskipTests
 
@@ -32,4 +27,4 @@ USER spring:spring
 
 EXPOSE 8080
 
-
+ENTRYPOINT ["java","-jar","app.jar"]
