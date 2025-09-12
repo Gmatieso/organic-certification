@@ -32,7 +32,6 @@ public class Farm {
     @OneToMany(mappedBy = "farm", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Field> fields  = new ArrayList<>();
 
-
     @OneToMany(mappedBy = "farm", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Inspection> inspections = new ArrayList<>();
 
