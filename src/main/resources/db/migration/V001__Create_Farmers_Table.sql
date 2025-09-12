@@ -1,3 +1,4 @@
+-- Enable UUID support (required once per DB)
 CREATE EXTENSION IF NOT EXISTS "pgcrypto";
 
 CREATE TABLE  farmers (
