@@ -8,11 +8,11 @@ COPY .mvn .mvn
 COPY mvnw mvnw
 COPY mvnw.cmd mvnw.cmd
 
-RUN mvn dependency:go-offline -B
+RUN ./mvnw dependency:go-offline -B
 
 # Copy source last
 COPY src src
-RUN mvn clean package -DskipTests
+RUN ./mvnw clean package -DskipTests
 
 # Stage 2: Runtime
 FROM amazoncorretto:17-alpine AS app
@@ -21,8 +21,9 @@ WORKDIR /app
 # Copy and rename jar
 COPY --from=build /build/target/*-SNAPSHOT.jar app.jar
 
-# Use a dedicated non-root user
-RUN addgroup -S spring && adduser -S spring -G spring
+# Use a dedicated non-root user (Alpine style)
+RUN addgroup -g 1000 spring \
+    && adduser -u 1000 -G spring -s /bin/sh -D spring
 USER spring:spring
 
 EXPOSE 8080
