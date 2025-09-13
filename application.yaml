@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: ${DATABASE_URL}
+    url: ${DATABASE_URL:}
     username: ${DATABASE_USER:}
     password: ${DATABASE_PASSWORD:}
   flyway:
