@@ -7,6 +7,9 @@ COPY .mvn .mvn
 COPY mvnw mvnw
 COPY mvnw.cmd mvnw.cmd
 
+# Give executable permission to mvnw
+RUN chmod +x mvnw
+
 RUN ./mvnw dependency:go-offline -B
 
 COPY src src
