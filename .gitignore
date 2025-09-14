@@ -33,3 +33,4 @@ build/
 .vscode/
 
 .env
+organic_certification.pem
