@@ -10,7 +10,7 @@ COPY mvnw.cmd mvnw.cmd
 # Give executable permission to mvnw
 RUN chmod +x mvnw
 
-RUN ./mvnw dependency:go-offline -B
+RUN #./mvnw dependency:go-offline -B
 
 COPY src src
 RUN ./mvnw clean package -DskipTests
