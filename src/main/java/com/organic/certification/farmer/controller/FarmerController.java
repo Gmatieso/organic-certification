@@ -7,11 +7,10 @@ import com.organic.certification.farmer.dtos.FarmerResponse;
 import com.organic.certification.farmer.service.FarmerService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(FarmerController.PATH)
@@ -26,6 +25,13 @@ public class FarmerController {
     public ResponseEntity<?> createFarmer(@Valid @RequestBody FarmerRequest  farmerRequest) {
         FarmerResponse response = farmerService.createFarmer(farmerRequest);
         return ApiResponseEntity.success("Farmer Created successfully", response);
-
     }
+
+    @GetMapping
+    public ResponseEntity<?> getAllFarmers(Pageable pageable) {
+        Page<FarmerResponse> response = farmerService.getAllFarmers(pageable);
+        return ApiResponseEntity.success("Farmers retrieved successfully", response);
+    }
+
+
 }

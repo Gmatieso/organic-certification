@@ -45,7 +45,9 @@ public class FarmerServiceImpl implements FarmerService {
 
     @Override
     public Page<FarmerResponse> getAllFarmers(Pageable pageable) {
-        return null;
+        Page<Farmer> farmersPage = farmerRepository.findAll(pageable);
+        Page<FarmerResponse> responsePage =  farmersPage.map(farmerMapper::toResponse);
+        return responsePage;
     }
 
     @Override
