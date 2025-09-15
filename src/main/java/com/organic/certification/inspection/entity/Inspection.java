@@ -5,6 +5,7 @@ import com.organic.certification.farm.entity.Farm;
 import com.organic.certification.inspection_checklist.entity.InspectionChecklist;
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.GenericGenerator;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -16,7 +17,8 @@ import java.util.UUID;
 @Data
 public class Inspection {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(generator = "UUID")
+    @Column(name = "id", updatable = false, nullable = false)
     private UUID id;
 
     private LocalDate date;

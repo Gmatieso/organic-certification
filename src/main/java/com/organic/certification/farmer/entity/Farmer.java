@@ -3,6 +3,7 @@ package com.organic.certification.farmer.entity;
 import com.organic.certification.farm.entity.Farm;
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.GenericGenerator;
 
 import java.util.ArrayList;
 import java.util.UUID;
@@ -14,7 +15,8 @@ import java.util.List;
 @Table(name = "farmers")
 public class Farmer {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(generator = "UUID")
+    @Column(name = "id", updatable = false, nullable = false)
     private UUID id;
 
     private String name;
