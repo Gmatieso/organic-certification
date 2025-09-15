@@ -44,7 +44,8 @@ public class FarmServiceImpl implements  FarmService {
 
     @Override
     public Page<FarmResponse> getAllFarms(Pageable pageable) {
-        return null;
+        Page<Farm> farmPage = farmRepository.findAll(pageable);
+        return farmPage.map(farmMapper::toResponse);
     }
 
     @Override
