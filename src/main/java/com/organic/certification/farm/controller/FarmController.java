@@ -1,7 +1,10 @@
 package com.organic.certification.farm.controller;
 
 import com.organic.certification.common.config.ApiConfig;
+import com.organic.certification.common.response.ApiResponseEntity;
 import com.organic.certification.farm.dtos.FarmRequest;
+import com.organic.certification.farm.dtos.FarmResponse;
+import com.organic.certification.farm.service.FarmService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -16,10 +19,12 @@ import java.util.UUID;
 public class FarmController {
 
     public static final String PATH = ApiConfig.BASE_API_PATH + "/farm";
+    private final FarmService farmService;
 
     @PostMapping
     public ResponseEntity<?> createFarm(@Valid  @RequestBody FarmRequest farmRequest) {
-        return null;
+        FarmResponse response = farmService.createFarm(farmRequest);
+        return ApiResponseEntity.success("Farm created successfully", response);
     }
 
     @GetMapping
