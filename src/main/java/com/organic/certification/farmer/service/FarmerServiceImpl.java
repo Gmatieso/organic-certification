@@ -37,6 +37,7 @@ public class FarmerServiceImpl implements FarmerService {
     @Override
     public FarmerResponse updateFarmer(UUID id, FarmerRequest request) {
         Farmer farmer = getFarmerByIdOrThrow(id);
+        farmer.setName(request.name());
         farmer.setEmail(request.email());
         farmer.setPhone(request.phone());
         farmer.setEmail(request.email());
