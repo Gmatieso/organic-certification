@@ -8,6 +8,8 @@ import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
 public interface FarmerMapper {
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "farms", ignore = true)
    Farmer toEntity(FarmerRequest request);
 
    @Mapping(target = "id", source ="id")
