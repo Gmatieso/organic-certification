@@ -14,6 +14,6 @@ public interface FarmService {
     FarmResponse updateFarm(UUID id, FarmRequest request);
     void deleteFarm(UUID id);
     Page<FarmResponse> getAllFarms(Pageable pageable);
-    FarmerResponse getFarm(UUID id);
+    FarmResponse getFarm(UUID id);
     Farm getFarmByIdOrThrow(UUID id);
 }

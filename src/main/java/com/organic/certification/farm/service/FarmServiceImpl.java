@@ -6,7 +6,6 @@ import com.organic.certification.farm.dtos.FarmResponse;
 import com.organic.certification.farm.entity.Farm;
 import com.organic.certification.farm.mappers.FarmMapper;
 import com.organic.certification.farm.repository.FarmRepository;
-import com.organic.certification.farmer.dtos.FarmerResponse;
 import com.organic.certification.farmer.entity.Farmer;
 import com.organic.certification.farmer.service.FarmerService;
 import lombok.AllArgsConstructor;
@@ -49,8 +48,9 @@ public class FarmServiceImpl implements  FarmService {
     }
 
     @Override
-    public FarmerResponse getFarm(UUID id) {
-        return null;
+    public FarmResponse getFarm(UUID id) {
+        Farm farm = getFarmByIdOrThrow(id);
+        return farmMapper.toResponse(farm);
     }
 
     @Override
