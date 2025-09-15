@@ -7,6 +7,8 @@ import com.organic.certification.farm.entity.Farm;
 import com.organic.certification.farm.mappers.FarmMapper;
 import com.organic.certification.farm.repository.FarmRepository;
 import com.organic.certification.farmer.dtos.FarmerResponse;
+import com.organic.certification.farmer.entity.Farmer;
+import com.organic.certification.farmer.service.FarmerService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,10 +22,14 @@ public class FarmServiceImpl implements  FarmService {
 
     private final FarmRepository farmRepository;
     private final FarmMapper farmMapper;
+    private final FarmerService farmerService;
 
     @Override
     public FarmResponse createFarm(FarmRequest request) {
-        return null;
+        Farm farm = farmMapper.toEntity(request);
+        Farmer farmer = farmerService.getFarmerByIdOrThrow(request.farmerId());
+        farm.setFarmer(farmer);
+        return farmMapper.toResponse(farmRepository.save(farm));
     }
 
     @Override
