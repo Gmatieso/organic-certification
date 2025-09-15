@@ -7,6 +7,7 @@ import com.organic.certification.farm.dtos.FarmResponse;
 import com.organic.certification.farm.service.FarmService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -29,7 +30,8 @@ public class FarmController {
 
     @GetMapping
     public ResponseEntity<?> getAllFarms(Pageable pageable) {
-        return null;
+        Page<FarmResponse> response = farmService.getAllFarms(pageable);
+        return ApiResponseEntity.success("Farms found", response);
     }
 
     @GetMapping("{id}")
