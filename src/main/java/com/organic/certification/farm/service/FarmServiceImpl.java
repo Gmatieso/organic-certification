@@ -38,7 +38,8 @@ public class FarmServiceImpl implements  FarmService {
 
     @Override
     public void deleteFarm(UUID id) {
-
+        Farm farm = getFarmByIdOrThrow(id);
+        farmRepository.delete(farm);
     }
 
     @Override
