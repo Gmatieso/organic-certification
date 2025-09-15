@@ -36,7 +36,8 @@ public class FarmController {
 
     @GetMapping("{id}")
     public ResponseEntity<?> getFarm(@PathVariable UUID id) {
-        return null;
+       FarmResponse response = farmService.getFarm(id);
+        return ApiResponseEntity.success("Farm retrieved successfully", response);
     }
 
     @PutMapping("{id}")
