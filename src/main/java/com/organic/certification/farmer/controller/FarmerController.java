@@ -41,7 +41,7 @@ public class FarmerController {
         return ApiResponseEntity.success("Farmer retrieved successfully", response);
     }
 
-    @PutMapping({"id"})
+    @PutMapping({"{id}"})
     public ResponseEntity<?> updateFarmer(@PathVariable UUID id, @RequestBody FarmerRequest  farmerRequest) {
         FarmerResponse response = farmerService.updateFarmer(id, farmerRequest);
         return ApiResponseEntity.success("Farmer updated successfully", response);
