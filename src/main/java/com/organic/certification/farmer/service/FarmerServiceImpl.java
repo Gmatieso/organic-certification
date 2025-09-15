@@ -1,6 +1,7 @@
 package com.organic.certification.farmer.service;
 
 import com.organic.certification.common.exception.BadRequestException;
+import com.organic.certification.common.exception.ResourceNotFoundException;
 import com.organic.certification.farmer.dtos.FarmerRequest;
 import com.organic.certification.farmer.dtos.FarmerResponse;
 import com.organic.certification.farmer.entity.Farmer;
@@ -52,6 +53,13 @@ public class FarmerServiceImpl implements FarmerService {
 
     @Override
     public FarmerResponse getFarmer(UUID id) {
-        return null;
+        Farmer farmer = getFarmerByIdOrThrow(id);
+        return  farmerMapper.toResponse(farmer);
+    }
+
+    @Override
+    public Farmer getFarmerByIdOrThrow(UUID id) {
+        return farmerRepository.findById(id)
+                .orElseThrow(()-> new ResourceNotFoundException("Farmer with id" + " " + id + "not found"));
     }
 }

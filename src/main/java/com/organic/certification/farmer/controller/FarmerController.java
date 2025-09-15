@@ -12,6 +12,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
 @RestController
 @RequestMapping(FarmerController.PATH)
 @AllArgsConstructor
@@ -31,6 +33,13 @@ public class FarmerController {
     public ResponseEntity<?> getAllFarmers(Pageable pageable) {
         Page<FarmerResponse> response = farmerService.getAllFarmers(pageable);
         return ApiResponseEntity.success("Farmers retrieved successfully", response);
+    }
+
+    @GetMapping("{id}")
+    public ResponseEntity<?> getFarmer(@PathVariable UUID id){
+        FarmerResponse response = farmerService.getFarmer(id);
+        return ApiResponseEntity.success("Farmer retrieved successfully", response);
+
     }
 
 
