@@ -71,6 +71,6 @@ public class FarmerServiceImpl implements FarmerService {
     @Override
     public Farmer getFarmerByIdOrThrow(UUID id) {
         return farmerRepository.findById(id)
-                .orElseThrow(()-> new ResourceNotFoundException("Farmer with id" + " " + id + "not found"));
+                .orElseThrow(()-> new ResourceNotFoundException("Farmer with id" + " " + id + " " + "not found"));
     }
 }
