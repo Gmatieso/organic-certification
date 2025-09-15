@@ -4,4 +4,6 @@ import com.organic.certification.farmer.entity.Farmer;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface FarmerRepository extends JpaRepository<Farmer, Integer> {
+    boolean existsByEmail(String email);
+    boolean existsByPhone(String phone);
 }
