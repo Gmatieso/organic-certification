@@ -10,7 +10,6 @@ import com.organic.certification.farmer.repository.FarmerRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
@@ -37,7 +36,15 @@ public class FarmerServiceImpl implements FarmerService {
 
     @Override
     public FarmerResponse updateFarmer(UUID id, FarmerRequest request) {
-        return null;
+        Farmer farmer = getFarmerByIdOrThrow(id);
+        farmer.setEmail(request.email());
+        farmer.setPhone(request.phone());
+        farmer.setEmail(request.email());
+        farmer.setCounty(request.county());
+
+        Farmer updatedFarmer = farmerRepository.save(farmer);
+
+        return farmerMapper.toResponse(updatedFarmer);
     }
 
     @Override
