@@ -9,6 +9,7 @@ import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -39,7 +40,12 @@ public class FarmerController {
     public ResponseEntity<?> getFarmer(@PathVariable UUID id){
         FarmerResponse response = farmerService.getFarmer(id);
         return ApiResponseEntity.success("Farmer retrieved successfully", response);
+    }
 
+    @DeleteMapping("{id}")
+    public ResponseEntity<?> deleteFarmer(@PathVariable UUID id){
+             farmerService.deleteFarmer(id);
+             return ApiResponseEntity.success("Farmer deleted successfully", null);
     }
 
 

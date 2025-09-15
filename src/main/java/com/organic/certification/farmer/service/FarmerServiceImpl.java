@@ -10,6 +10,7 @@ import com.organic.certification.farmer.repository.FarmerRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
@@ -40,8 +41,9 @@ public class FarmerServiceImpl implements FarmerService {
     }
 
     @Override
-    public Void deleteFarmer(UUID id) {
-        return null;
+    public void deleteFarmer(UUID id) {
+        Farmer farmer = getFarmerByIdOrThrow(id);
+        farmerRepository.delete(farmer);
     }
 
     @Override
