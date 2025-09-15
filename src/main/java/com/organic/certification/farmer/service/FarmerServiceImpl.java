@@ -34,6 +34,7 @@ public class FarmerServiceImpl implements FarmerService {
         return farmerMapper.toResponse(farmerRepository.save(farmer));
     }
 
+
     @Override
     public FarmerResponse updateFarmer(UUID id, FarmerRequest request) {
         Farmer farmer = getFarmerByIdOrThrow(id);
