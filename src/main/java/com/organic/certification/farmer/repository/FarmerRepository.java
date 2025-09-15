@@ -7,9 +7,7 @@ import java.util.List;
 import java.util.UUID;
 
 
-public interface FarmerRepository extends JpaRepository<Farmer, Integer> {
+public interface FarmerRepository extends JpaRepository<Farmer, UUID> {
     boolean existsByEmail(String email);
     boolean existsByPhone(String phone);
-
-    List<Farmer> id(UUID id);
 }

@@ -5,7 +5,6 @@ import com.organic.certification.farmer.dtos.FarmerResponse;
 import com.organic.certification.farmer.entity.Farmer;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.ResponseEntity;
 
 import java.util.UUID;
 
