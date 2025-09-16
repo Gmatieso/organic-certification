@@ -8,10 +8,9 @@ import com.organic.certification.inspection.service.InspectionService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.UUID;
 
 @RestController
 @RequestMapping(InspectionController.PATH)
@@ -24,5 +23,11 @@ public class InspectionController {
     public ResponseEntity<?> createInspection(@Valid @RequestBody InspectionRequest inspectionRequest) {
         InspectionResponse response = inspectionService.createInspection(inspectionRequest);
         return ApiResponseEntity.success("Inspection created successfully", response);
+    }
+
+    @PutMapping("{id}")
+    public ResponseEntity<?> updateInspection(@PathVariable UUID id, @Valid @RequestBody InspectionRequest inspectionRequest) {
+        InspectionResponse response = inspectionService.updateInspection(id,inspectionRequest);
+        return ApiResponseEntity.success("Inspection updated successfully", response);
     }
 }
