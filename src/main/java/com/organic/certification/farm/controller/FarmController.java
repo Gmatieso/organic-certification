@@ -43,7 +43,8 @@ public class FarmController {
 
     @PutMapping("{id}")
     public ResponseEntity<?> updateFarm(@PathVariable UUID id, @RequestBody FarmRequest farmRequest){
-        return null;
+        FarmResponse response = farmService.updateFarm(id, farmRequest);
+        return ApiResponseEntity.success("Farm updated successfully", response);
     }
 
     @DeleteMapping("{id}")
