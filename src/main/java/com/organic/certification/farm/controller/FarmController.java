@@ -32,7 +32,7 @@ public class FarmController {
     @GetMapping
     public ResponseEntity<?> getAllFarms(Pageable pageable) {
         Page<FarmResponse> response = farmService.getAllFarms(pageable);
-        return ApiResponseEntity.success("Farms found", response);
+        return ApiResponseEntity.success("Farms retrieved  successfully", response);
     }
 
     @GetMapping("{id}")
