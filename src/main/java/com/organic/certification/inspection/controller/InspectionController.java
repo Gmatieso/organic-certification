@@ -38,5 +38,11 @@ public class InspectionController {
         Page<InspectionResponse> responses = inspectionService.getInspections(pageable);
         return ApiResponseEntity.success("Inspections retrieved successfully", responses);
     }
+
+    @GetMapping("{id}")
+    public ResponseEntity<?> getInspection(@PathVariable UUID id) {
+        InspectionResponse response = inspectionService.getInspection(id);
+        return ApiResponseEntity.success("Inspection retrieved successfully", response);
+    }
 }
 
