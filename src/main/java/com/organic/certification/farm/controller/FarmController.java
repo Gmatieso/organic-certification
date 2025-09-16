@@ -20,7 +20,7 @@ import java.util.UUID;
 @AllArgsConstructor
 public class FarmController {
 
-    public static final String PATH = ApiConfig.BASE_API_PATH + "/farm";
+    public static final String PATH = ApiConfig.BASE_API_PATH + "farm";
     private final FarmService farmService;
 
     @PostMapping
