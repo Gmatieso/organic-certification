@@ -10,6 +10,7 @@ import com.organic.certification.field.repository.FieldRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
@@ -45,8 +46,8 @@ public class FieldServiceImpl implements FieldService {
     }
 
     @Override
-    public Page<FieldResponse> getAllFields(PageRequest pageRequest) {
-        Page<Field> fieldPage = fieldRepository.findAll(pageRequest);
+    public Page<FieldResponse> getAllFields(Pageable pageable) {
+        Page<Field> fieldPage = fieldRepository.findAll(pageable);
         return fieldPage.map(fieldMapper::toResponse);
     }
 
