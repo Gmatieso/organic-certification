@@ -7,6 +7,8 @@ import com.organic.certification.field.dtos.FieldResponse;
 import com.organic.certification.field.service.FieldService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,5 +31,10 @@ public class FieldController {
     public ResponseEntity<?> updateField(@PathVariable UUID id, @Valid  @RequestBody FieldRequest fieldRequest) {
         FieldResponse fieldResponse = fieldService.updateField(id, fieldRequest);
         return ApiResponseEntity.success("Field updated successfully", fieldResponse);
+    }
+    @GetMapping
+    public ResponseEntity<?> getFields(Pageable pageable) {
+        Page<FieldResponse> response = fieldService.getAllFields(pageable);
+        return  ApiResponseEntity.success("Fields retrieved successfully", response);
     }
 }
