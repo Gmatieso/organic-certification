@@ -54,7 +54,8 @@ public class FieldServiceImpl implements FieldService {
 
     @Override
     public FieldResponse getField(UUID id) {
-        return null;
+        Field field = getFieldByIdOrThrow(id);
+        return fieldMapper.toResponse(field);
     }
 
     @Override
