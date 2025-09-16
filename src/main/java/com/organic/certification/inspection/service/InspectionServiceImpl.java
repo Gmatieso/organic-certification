@@ -1,6 +1,7 @@
 package com.organic.certification.inspection.service;
 
 import com.organic.certification.common.exception.ResourceNotFoundException;
+import com.organic.certification.farm.entity.Farm;
 import com.organic.certification.farm.service.FarmService;
 import com.organic.certification.inspection.dtos.InspectionRequest;
 import com.organic.certification.inspection.dtos.InspectionResponse;
@@ -23,7 +24,10 @@ public class InspectionServiceImpl implements InspectionService {
 
     @Override
     public InspectionResponse createInspection(InspectionRequest inspectionRequest) {
-        return null;
+        Inspection inspection = inspectionMapper.toEntity(inspectionRequest);
+        Farm farm  = farmService.getFarmByIdOrThrow(inspectionRequest.farmId());
+        inspection.setFarm(farm);
+        return inspectionMapper.toResponse(inspectionRepository.save(inspection));
     }
 
     @Override
