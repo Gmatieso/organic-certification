@@ -1,5 +1,6 @@
 package com.organic.certification.field.service;
 
+import com.organic.certification.common.exception.ResourceNotFoundException;
 import com.organic.certification.farm.entity.Farm;
 import com.organic.certification.farm.service.FarmService;
 import com.organic.certification.field.dtos.FieldRequest;
@@ -58,6 +59,7 @@ public class FieldServiceImpl implements FieldService {
 
     @Override
     public Field getFieldByIdOrThrow(UUID id) {
-        return null;
+        return fieldRepository.findById(id)
+                .orElseThrow(()-> new ResourceNotFoundException("Field with id" + " " + id + " " + "not found"));
     }
 }
