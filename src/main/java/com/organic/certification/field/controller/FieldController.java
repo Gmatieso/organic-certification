@@ -8,10 +8,9 @@ import com.organic.certification.field.service.FieldService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.UUID;
 
 @RestController
 @RequestMapping(FieldController.PATH)
@@ -24,5 +23,11 @@ public class FieldController {
     public ResponseEntity<?> createField(@Valid  @RequestBody FieldRequest fieldRequest) {
         FieldResponse fieldResponse = fieldService.createField(fieldRequest);
         return ApiResponseEntity.success("Field created successfully", fieldResponse);
+    }
+
+    @PutMapping("{id}")
+    public ResponseEntity<?> updateField(@PathVariable UUID id, @Valid  @RequestBody FieldRequest fieldRequest) {
+        FieldResponse fieldResponse = fieldService.updateField(id, fieldRequest);
+        return ApiResponseEntity.success("Field updated successfully", fieldResponse);
     }
 }
