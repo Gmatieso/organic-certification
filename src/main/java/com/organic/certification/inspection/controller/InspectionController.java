@@ -9,6 +9,7 @@ import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -43,6 +44,12 @@ public class InspectionController {
     public ResponseEntity<?> getInspection(@PathVariable UUID id) {
         InspectionResponse response = inspectionService.getInspection(id);
         return ApiResponseEntity.success("Inspection retrieved successfully", response);
+    }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<?> deleteInspection(@PathVariable UUID id) {
+        inspectionService.deleteInspection(id);
+        return ApiResponseEntity.success("Inspection deleted successfully", null);
     }
 }
 

@@ -42,7 +42,8 @@ public class InspectionServiceImpl implements InspectionService {
 
     @Override
     public void deleteInspection(UUID id) {
-
+        Inspection inspection = getInspectionByIdOrThrow(id);
+        inspectionRepository.delete(inspection);
     }
 
     @Override
