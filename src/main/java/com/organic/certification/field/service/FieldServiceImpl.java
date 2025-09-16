@@ -43,7 +43,8 @@ public class FieldServiceImpl implements FieldService {
 
     @Override
     public void deleteField(UUID id) {
-
+        Field field = getFieldByIdOrThrow(id);
+        fieldRepository.delete(field);
     }
 
     @Override
