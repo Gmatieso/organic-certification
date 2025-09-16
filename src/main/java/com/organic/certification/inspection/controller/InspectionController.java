@@ -7,6 +7,8 @@ import com.organic.certification.inspection.dtos.InspectionResponse;
 import com.organic.certification.inspection.service.InspectionService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,4 +32,11 @@ public class InspectionController {
         InspectionResponse response = inspectionService.updateInspection(id,inspectionRequest);
         return ApiResponseEntity.success("Inspection updated successfully", response);
     }
+
+    @GetMapping
+    public ResponseEntity<?> getInspections(Pageable pageable) {
+        Page<InspectionResponse> responses = inspectionService.getInspections(pageable);
+        return ApiResponseEntity.success("Inspections retrieved successfully", responses);
+    }
 }
+

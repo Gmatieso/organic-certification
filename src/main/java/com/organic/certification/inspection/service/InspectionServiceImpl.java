@@ -11,6 +11,7 @@ import com.organic.certification.inspection.repository.InspectionRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
@@ -21,7 +22,6 @@ public class InspectionServiceImpl implements InspectionService {
     private final InspectionRepository inspectionRepository;
     private final InspectionMapper inspectionMapper;
     private final FarmService farmService;
-    private final InspectionService inspectionService;
 
     @Override
     public InspectionResponse createInspection(InspectionRequest inspectionRequest) {
@@ -47,8 +47,8 @@ public class InspectionServiceImpl implements InspectionService {
     }
 
     @Override
-    public Page<InspectionResponse> getInspections(PageRequest pageRequest) {
-        Page<Inspection> inspectionPage =  inspectionRepository.findAll(pageRequest);
+    public Page<InspectionResponse> getInspections(Pageable pageable) {
+        Page<Inspection> inspectionPage =  inspectionRepository.findAll(pageable);
         return inspectionPage.map(inspectionMapper::toResponse);
     }
 
