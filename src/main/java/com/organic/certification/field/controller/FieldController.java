@@ -37,4 +37,10 @@ public class FieldController {
         Page<FieldResponse> response = fieldService.getAllFields(pageable);
         return  ApiResponseEntity.success("Fields retrieved successfully", response);
     }
+
+    @GetMapping("{id}")
+    public ResponseEntity<?> getFieldById(@PathVariable UUID id) {
+        FieldResponse response = fieldService.getField(id);
+        return ApiResponseEntity.success("Field retrieved successfully", response);
+    }
 }
