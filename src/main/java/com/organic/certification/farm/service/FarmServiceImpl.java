@@ -33,7 +33,11 @@ public class FarmServiceImpl implements  FarmService {
 
     @Override
     public FarmResponse updateFarm(UUID id, FarmRequest request) {
-        return null;
+        Farm farm = getFarmByIdOrThrow(id);
+        farm.setFarmName(request.farmName());
+        farm.setLocation(request.location());
+        farm.setAreaHa(request.areaHa());
+        return farmMapper.toResponse(farmRepository.save(farm));
     }
 
     @Override
