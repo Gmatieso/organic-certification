@@ -18,4 +18,10 @@ public interface FarmMapper {
 
     @Mapping(target = "farmerResponse",  ignore = true)
     FarmResponse toResponse(Farm farm);
+
+    /*TODO: map farmer Entity  */
+    /*TODO: map farmer Fields  */
+    /*TODO: map farmer inspections  */
+    /*TODO: map farmer certificate  */
+    /*TODO: map farmerResponse  */
 }

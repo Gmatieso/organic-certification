@@ -14,4 +14,6 @@ public interface FarmerMapper {
 
    @Mapping(target = "id", source ="id")
   FarmerResponse toResponse(Farmer farmer);
+
+    /*TODO: map farms Entity  */
 }

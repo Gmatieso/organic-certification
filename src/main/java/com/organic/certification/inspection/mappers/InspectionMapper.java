@@ -15,5 +15,7 @@ public interface InspectionMapper {
     @Mapping(target = "farmResponse", ignore = true)
     InspectionResponse toResponse(Inspection inspection);
 
+    /*TODO: map farm entity  */
+    /*TODO: map farm response  */
 
 }

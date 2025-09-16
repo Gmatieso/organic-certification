@@ -14,4 +14,7 @@ public interface FieldMapper {
 
     @Mapping(target = "farmResponse", ignore = true)
     FieldResponse toResponse(Field field);
+
+    /*TODO: map farm Entity  */
+    /*TODO: map farmResponse */
 }
