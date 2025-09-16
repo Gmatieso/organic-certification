@@ -46,7 +46,8 @@ public class FieldServiceImpl implements FieldService {
 
     @Override
     public Page<FieldResponse> getAllFields(PageRequest pageRequest) {
-        return null;
+        Page<Field> fieldPage = fieldRepository.findAll(pageRequest);
+        return fieldPage.map(fieldMapper::toResponse);
     }
 
     @Override
