@@ -1,0 +1,28 @@
+package com.organic.certification.inspection.controller;
+
+import com.organic.certification.common.config.ApiConfig;
+import com.organic.certification.common.response.ApiResponseEntity;
+import com.organic.certification.inspection.dtos.InspectionRequest;
+import com.organic.certification.inspection.dtos.InspectionResponse;
+import com.organic.certification.inspection.service.InspectionService;
+import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping(InspectionController.PATH)
+@AllArgsConstructor
+public class InspectionController {
+    public static final String PATH = ApiConfig.BASE_API_PATH + "inspection";
+    private final InspectionService inspectionService;
+
+    @PostMapping
+    public ResponseEntity<?> createInspection(@Valid @RequestBody InspectionRequest inspectionRequest) {
+        InspectionResponse response = inspectionService.createInspection(inspectionRequest);
+        return ApiResponseEntity.success("Inspection created successfully", response);
+    }
+}
