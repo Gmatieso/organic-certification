@@ -32,7 +32,11 @@ public class FieldServiceImpl implements FieldService {
 
     @Override
     public FieldResponse updateField(UUID id, FieldRequest fieldRequest) {
-        return null;
+        Field field = getFieldByIdOrThrow(id);
+        field.setName(fieldRequest.name());
+        field.setCrop(fieldRequest.crop());
+        field.setAreaHa(fieldRequest.areaHa());
+        return fieldMapper.toResponse(fieldRepository.save(field));
     }
 
     @Override
