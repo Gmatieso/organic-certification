@@ -10,7 +10,6 @@ import com.organic.certification.inspection.mappers.InspectionMapper;
 import com.organic.certification.inspection.repository.InspectionRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -54,7 +53,8 @@ public class InspectionServiceImpl implements InspectionService {
 
     @Override
     public InspectionResponse getInspection(UUID id) {
-        return null;
+        Inspection inspection = getInspectionByIdOrThrow(id);
+        return inspectionMapper.toResponse(inspection);
     }
 
     @Override
