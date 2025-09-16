@@ -21,6 +21,7 @@ public class InspectionServiceImpl implements InspectionService {
     private final InspectionRepository inspectionRepository;
     private final InspectionMapper inspectionMapper;
     private final FarmService farmService;
+    private final InspectionService inspectionService;
 
     @Override
     public InspectionResponse createInspection(InspectionRequest inspectionRequest) {
@@ -47,7 +48,8 @@ public class InspectionServiceImpl implements InspectionService {
 
     @Override
     public Page<InspectionResponse> getInspections(PageRequest pageRequest) {
-        return null;
+        Page<Inspection> inspectionPage =  inspectionRepository.findAll(pageRequest);
+        return inspectionPage.map(inspectionMapper::toResponse);
     }
 
     @Override
