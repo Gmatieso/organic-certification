@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.UUID;
 
-public interface InspectionChecklistRepository extends JpaRepository<InspectionChecklist, UUID> {
+public interface ChecklistRepository extends JpaRepository<InspectionChecklist, UUID> {
 }

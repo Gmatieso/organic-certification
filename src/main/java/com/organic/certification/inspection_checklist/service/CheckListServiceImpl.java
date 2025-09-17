@@ -1,8 +1,12 @@
 package com.organic.certification.inspection_checklist.service;
 
+import com.organic.certification.inspection.entity.Inspection;
+import com.organic.certification.inspection.service.InspectionService;
 import com.organic.certification.inspection_checklist.dtos.CheckListRequest;
 import com.organic.certification.inspection_checklist.dtos.CheckListResponse;
 import com.organic.certification.inspection_checklist.entity.InspectionChecklist;
+import com.organic.certification.inspection_checklist.mappers.CheckListMapper;
+import com.organic.certification.inspection_checklist.repository.ChecklistRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,9 +17,16 @@ import java.util.UUID;
 @Service
 @AllArgsConstructor
 public class CheckListServiceImpl implements CheckListService {
+    private final CheckListMapper checkListMapper;
+    private final InspectionService inspectionService;
+    private final ChecklistRepository checklistRepository;
+
     @Override
     public CheckListResponse createCheckList(CheckListRequest checkListRequest) {
-        return null;
+        InspectionChecklist checklist = checkListMapper.toEntity(checkListRequest);
+        Inspection inspection = inspectionService.getInspectionByIdOrThrow(checkListRequest.inspection_id());
+        checklist.setInspection(inspection);
+        return checkListMapper.toResponse(checklistRepository.save(checklist));
     }
 
     @Override
