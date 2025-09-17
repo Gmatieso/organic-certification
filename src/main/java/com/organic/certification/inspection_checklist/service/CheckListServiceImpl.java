@@ -45,7 +45,8 @@ public class CheckListServiceImpl implements CheckListService {
 
     @Override
     public Page<CheckListResponse> getCheckLists(Pageable pageable) {
-        return null;
+        Page<InspectionChecklist> checklistsPage = checklistRepository.findAll(pageable);
+        return checklistsPage.map(checkListMapper::toResponse);
     }
 
     @Override
