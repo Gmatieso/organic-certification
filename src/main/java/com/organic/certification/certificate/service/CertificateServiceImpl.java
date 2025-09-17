@@ -25,7 +25,7 @@ public class CertificateServiceImpl implements CertificateService {
     @Override
     public CertificateResponse createCertificate(CertificateRequest request) {
         Certificate certificate = certificateMapper.toEntity(request);
-        Farm farm = farmService.getFarmByIdOrThrow(request.farmId().getId());
+        Farm farm = farmService.getFarmByIdOrThrow(request.farmId());
         certificate.setFarm(farm);
         return certificateMapper.toResponse(certificateRepository.save(certificate));
     }

@@ -13,6 +13,7 @@ public interface CertificateMapper {
     Certificate toEntity(CertificateRequest certificateRequest);
 
     @Mapping(target = "farmResponse", ignore = true)
+    @Mapping(source = "certificateNo", target ="certificateNo")
     CertificateResponse toResponse(Certificate certificate);
 
     /*TODO: map farm entity */

@@ -1,14 +1,13 @@
 package com.organic.certification.certificate.dtos;
 
-import com.organic.certification.farm.entity.Farm;
-
 import java.time.LocalDate;
+import java.util.UUID;
 
 public record CertificateRequest(
         String certificateNo,
         LocalDate issueDate,
         LocalDate expiryDate,
         String pdfUrl,
-        Farm farmId
+        UUID farmId
         ) {
 }

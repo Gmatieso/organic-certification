@@ -7,7 +7,7 @@ import java.util.UUID;
 
 public record CertificateResponse(
         UUID id,
-        String CertificateNo,
+        String certificateNo,
         LocalDate issueDate,
         LocalDate expiryDate,
         String pdfUrl,

@@ -44,7 +44,7 @@ public class FieldController {
         return ApiResponseEntity.success("Field retrieved successfully", response);
     }
 
-    @DeleteMapping({"id"})
+    @DeleteMapping({"{id}"})
     public ResponseEntity<?> deleteField(@PathVariable UUID id) {
         fieldService.deleteField(id);
         return ApiResponseEntity.success("Field deleted successfully",null);
