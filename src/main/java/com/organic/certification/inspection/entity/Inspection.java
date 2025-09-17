@@ -36,4 +36,11 @@ public class Inspection {
 
     @OneToMany(mappedBy = "inspection", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<InspectionChecklist> checklist = new ArrayList<>();
+
+    @PrePersist
+    public void prePersist(){
+        if (date == null) {
+            date = LocalDate.now();
+        }
+    }
 }
