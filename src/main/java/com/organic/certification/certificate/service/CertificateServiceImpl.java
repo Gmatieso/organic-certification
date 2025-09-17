@@ -46,7 +46,8 @@ public class CertificateServiceImpl implements CertificateService {
 
     @Override
     public Page<CertificateResponse> getCertificates(Pageable pageable) {
-        return null;
+        Page<Certificate> certificatesPage = certificateRepository.findAll(pageable);
+        return certificatesPage.map(certificateMapper::toResponse);
     }
 
     @Override
