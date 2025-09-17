@@ -27,7 +27,7 @@ public class CertificateController {
         return ApiResponseEntity.success("Certificate Created successfully", response);
     }
 
-    @PostMapping("{id}")
+    @PutMapping("{id}")
     public ResponseEntity<?> updateCertificate(@PathVariable UUID id, @Valid @RequestBody CertificateRequest certificateRequest){
         CertificateResponse response = certificateService.updateCertificate(id,certificateRequest);
         return ApiResponseEntity.success("Certificate Updated successfully", response);
