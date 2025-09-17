@@ -46,4 +46,10 @@ public class CertificateController {
         return ApiResponseEntity.success("Certificate retrieved successfully", response);
     }
 
+    @DeleteMapping("{id}")
+    public ResponseEntity<?> deleteCertificate(@PathVariable UUID id){
+        certificateService.deleteCertificate(id);
+        return ApiResponseEntity.success("Certificate deleted successfully", null);
+    }
+
 }
