@@ -12,4 +12,7 @@ public interface CertificateMapper {
 
     @Mapping(target = "farmResponse", ignore = true)
     CertificateResponse toResponse(Certificate certificate);
+
+    /*TODO: map farm entity */
+    /*TODO: map farmResponse */
 }
