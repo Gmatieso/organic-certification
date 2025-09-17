@@ -17,7 +17,7 @@ public class InspectionChecklist {
 
     private String question;
 
-    private Boolean answer;
+    private Boolean answer = false;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "inspection_id", nullable = false)
