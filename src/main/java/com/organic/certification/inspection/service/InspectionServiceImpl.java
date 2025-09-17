@@ -8,11 +8,15 @@ import com.organic.certification.inspection.dtos.InspectionResponse;
 import com.organic.certification.inspection.entity.Inspection;
 import com.organic.certification.inspection.mappers.InspectionMapper;
 import com.organic.certification.inspection.repository.InspectionRepository;
+import com.organic.certification.inspection_checklist.entity.InspectionChecklist;
+import com.organic.certification.inspection_checklist.repository.ChecklistRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -21,6 +25,7 @@ public class InspectionServiceImpl implements InspectionService {
     private final InspectionRepository inspectionRepository;
     private final InspectionMapper inspectionMapper;
     private final FarmService farmService;
+    private final ChecklistRepository checklistRepository;
 
     @Override
     public InspectionResponse createInspection(InspectionRequest inspectionRequest) {
@@ -62,5 +67,16 @@ public class InspectionServiceImpl implements InspectionService {
     public Inspection getInspectionByIdOrThrow(UUID id) {
         return inspectionRepository.findById(id)
                 .orElseThrow(()-> new ResourceNotFoundException("Inspection with id" + " " + id + " " + "not found"));
+    }
+
+    @Override
+    public InspectionResponse CompleteInspection(UUID id) {
+//        Inspection inspection = getInspectionByIdOrThrow(id);
+//
+//        Optional<InspectionChecklist> checklists = checklistRepository.findById(id);
+//        long yesCount = checklists.stream().filter(c -> "YES".equalsIgnoreCase(String.valueOf(c.getAnswer()))).count();
+//        double score = ((double) yesCount / checklists.size()) * 100;
+//
+        return null;
     }
 }
