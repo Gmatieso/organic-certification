@@ -31,7 +31,12 @@ public class CertificateServiceImpl implements CertificateService {
 
     @Override
     public CertificateResponse updateCertificate(UUID id, CertificateRequest request) {
-        return null;
+        Certificate certificate = getCertificateByIdOrThrow(id);
+        certificate.setCertificateNo(request.certificateNo());
+        certificate.setExpiryDate(request.expiryDate());
+        certificate.setPdfUrl(request.pdfUrl());
+        certificate.setIssueDate(request.issueDate());
+        return certificateMapper.toResponse(certificateRepository.save(certificate));
     }
 
     @Override

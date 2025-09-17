@@ -9,10 +9,9 @@ import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.UUID;
 
 @RestController
 @RequestMapping(CertificateController.PATH)
@@ -25,5 +24,11 @@ public class CertificateController {
     public ResponseEntity<?> createCertificate( @Valid @RequestBody CertificateRequest certificateRequest){
         CertificateResponse response = certificateService.createCertificate(certificateRequest);
         return ApiResponseEntity.success("Certificate Created successfully", response);
+    }
+
+    @PostMapping("{id}")
+    public ResponseEntity<?> updateCertificate(@PathVariable UUID id, @Valid @RequestBody CertificateRequest certificateRequest){
+        CertificateResponse response = certificateService.updateCertificate(id,certificateRequest);
+        return ApiResponseEntity.success("Certificate Updated successfully", response);
     }
 }
