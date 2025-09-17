@@ -31,7 +31,10 @@ public class CheckListServiceImpl implements CheckListService {
 
     @Override
     public CheckListResponse updateCheckList(UUID id, CheckListRequest checkListRequest) {
-        return null;
+        InspectionChecklist checklist = getCheckListByIdOrThrow(id);
+        checklist.setQuestion(checkListRequest.question());
+        checklist.setAnswer(checkListRequest.answer());
+        return checkListMapper.toResponse(checklistRepository.save(checklist));
     }
 
     @Override
