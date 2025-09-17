@@ -1,5 +1,6 @@
 package com.organic.certification.inspection_checklist.service;
 
+import com.organic.certification.common.exception.ResourceNotFoundException;
 import com.organic.certification.inspection.entity.Inspection;
 import com.organic.certification.inspection.service.InspectionService;
 import com.organic.certification.inspection_checklist.dtos.CheckListRequest;
@@ -54,6 +55,7 @@ public class CheckListServiceImpl implements CheckListService {
 
     @Override
     public InspectionChecklist getCheckListByIdOrThrow(UUID id) {
-        return null;
+        return checklistRepository.findById(id)
+                .orElseThrow(()-> new ResourceNotFoundException("CheckList with id" + " " + id + " " + "not found"));
     }
 }
