@@ -5,6 +5,7 @@ import com.organic.certification.certificate.dtos.CertificateResponse;
 import com.organic.certification.certificate.entity.Certificate;
 import com.organic.certification.certificate.mappers.CertificateMapper;
 import com.organic.certification.certificate.repository.CertificateRepository;
+import com.organic.certification.common.exception.ResourceNotFoundException;
 import com.organic.certification.farm.entity.Farm;
 import com.organic.certification.farm.service.FarmService;
 import lombok.AllArgsConstructor;
@@ -52,11 +53,13 @@ public class CertificateServiceImpl implements CertificateService {
 
     @Override
     public CertificateResponse getCertificate(UUID id) {
-        return null;
+        Certificate certificate = getCertificateByIdOrThrow(id);
+        return certificateMapper.toResponse(certificate);
     }
 
     @Override
     public Certificate getCertificateByIdOrThrow(UUID id) {
-        return null;
+        return certificateRepository.findById(id)
+                .orElseThrow(()-> new ResourceNotFoundException("Certificate with id" + " " + id + " " + " not found "));
     }
 }

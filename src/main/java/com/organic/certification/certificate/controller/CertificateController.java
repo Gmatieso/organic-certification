@@ -40,4 +40,10 @@ public class CertificateController {
         return ApiResponseEntity.success("Certificates retrieved successfully", response);
     }
 
+    @GetMapping("{id}")
+    public ResponseEntity<?> getCertificateById(@PathVariable UUID id){
+        CertificateResponse response = certificateService.getCertificate(id);
+        return ApiResponseEntity.success("Certificate retrieved successfully", response);
+    }
+
 }
