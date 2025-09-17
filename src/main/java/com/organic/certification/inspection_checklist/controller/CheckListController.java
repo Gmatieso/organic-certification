@@ -36,5 +36,10 @@ public class CheckListController {
         Page<CheckListResponse> response = checkListService.getCheckLists(pageable);
         return ApiResponseEntity.success("Checklists retrieved successfully", response);
     }
+    @GetMapping("{id}")
+    public ResponseEntity<?> getCheckList(@PathVariable UUID id) {
+        CheckListResponse response = checkListService.getCheckListById(id);
+        return ApiResponseEntity.success("Checklist retrieved successfully", response);
+    }
 
 }
