@@ -1,4 +1,45 @@
 package com.organic.certification.inspection_checklist.service;
 
-public class CheckListServiceImpl {
+import com.organic.certification.inspection_checklist.dtos.CheckListRequest;
+import com.organic.certification.inspection_checklist.dtos.CheckListResponse;
+import com.organic.certification.inspection_checklist.entity.InspectionChecklist;
+import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+
+import java.util.UUID;
+
+@Service
+@AllArgsConstructor
+public class CheckListServiceImpl implements CheckListService {
+    @Override
+    public CheckListResponse createCheckList(CheckListRequest checkListRequest) {
+        return null;
+    }
+
+    @Override
+    public CheckListResponse updateCheckList(UUID id, CheckListRequest checkListRequest) {
+        return null;
+    }
+
+    @Override
+    public void deleteCheckList(UUID id) {
+
+    }
+
+    @Override
+    public Page<CheckListResponse> getCheckLists(Pageable pageable) {
+        return null;
+    }
+
+    @Override
+    public CheckListResponse getCheckListById(UUID id) {
+        return null;
+    }
+
+    @Override
+    public InspectionChecklist getCheckListByIdOrThrow(UUID id) {
+        return null;
+    }
 }
