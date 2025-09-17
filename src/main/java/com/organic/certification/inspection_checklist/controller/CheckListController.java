@@ -8,6 +8,7 @@ import com.organic.certification.inspection_checklist.service.CheckListService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,6 +41,12 @@ public class CheckListController {
     public ResponseEntity<?> getCheckList(@PathVariable UUID id) {
         CheckListResponse response = checkListService.getCheckListById(id);
         return ApiResponseEntity.success("Checklist retrieved successfully", response);
+    }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<?> deleteCheckList(@PathVariable UUID id) {
+        checkListService.deleteCheckList(id);
+        return ApiResponseEntity.success("Checklist deleted successfully", null);
     }
 
 }

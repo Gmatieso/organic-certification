@@ -40,7 +40,8 @@ public class CheckListServiceImpl implements CheckListService {
 
     @Override
     public void deleteCheckList(UUID id) {
-
+        InspectionChecklist checklist = getCheckListByIdOrThrow(id);
+        checklistRepository.delete(checklist);
     }
 
     @Override
