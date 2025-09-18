@@ -45,7 +45,22 @@ public class InspectionServiceImpl implements InspectionService {
         Inspection inspection = inspectionMapper.toEntity(inspectionRequest);
         Farm farm  = farmService.getFarmByIdOrThrow(inspectionRequest.farmId());
         inspection.setFarm(farm);
-        return inspectionMapper.toResponse(inspectionRepository.save(inspection));
+
+        Inspection saved = inspectionRepository.save(inspection);
+
+        // generate default checklist
+        List<InspectionChecklist> checklists = DEFAULT_QUESTIONS.stream()
+                .map(q -> {
+                    InspectionChecklist c = new InspectionChecklist();
+                    c.setQuestion(q);
+                    c.setAnswer(null); // unanswered yet
+                    c.setInspection(saved);
+                    return c;
+                }).toList();
+        checklistRepository.saveAll(checklists);
+
+        saved.setChecklist(checklists);
+        return inspectionMapper.toResponse(saved);
     }
 
     @Override

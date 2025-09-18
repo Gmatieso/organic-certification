@@ -29,9 +29,7 @@ public class InspectionController {
     }
 
 
-
-
-    @PostMapping("{id}/complete")
+    @PostMapping("/{id}/complete")
     public ResponseEntity<?> completeInspection(@PathVariable UUID id) {
         InspectionResponse response = inspectionService.completeInspection(id);
         return ApiResponseEntity.success("Inspection completed successfully", response);
