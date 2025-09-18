@@ -13,7 +13,6 @@ public interface CheckListMapper {
     @Mapping(target = "inspection", ignore = true)
     InspectionChecklist toEntity(CheckListRequest checkListRequest);
 
-    @Mapping(target = "inspectionResponse", ignore = true)
     CheckListResponse toResponse(InspectionChecklist checklist);
 
 

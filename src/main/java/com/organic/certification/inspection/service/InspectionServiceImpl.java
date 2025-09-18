@@ -13,6 +13,7 @@ import com.organic.certification.inspection.repository.InspectionRepository;
 import com.organic.certification.inspection_checklist.dtos.CheckListRequest;
 import com.organic.certification.inspection_checklist.dtos.CheckListResponse;
 import com.organic.certification.inspection_checklist.entity.InspectionChecklist;
+import com.organic.certification.inspection_checklist.mappers.CheckListMapper;
 import com.organic.certification.inspection_checklist.repository.ChecklistRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -31,6 +32,7 @@ public class InspectionServiceImpl implements InspectionService {
     private final FarmService farmService;
     private final ChecklistRepository checklistRepository;
     private final CertificateService certificateService;
+    private final CheckListMapper checkListMapper;
 
     @Override
     public InspectionResponse createInspection(InspectionRequest inspectionRequest) {
@@ -105,7 +107,11 @@ public class InspectionServiceImpl implements InspectionService {
 
     @Override
     public CheckListResponse addCheckListItem(UUID inspectionId, CheckListRequest request) {
-        return null;
+        Inspection inspection = getInspectionByIdOrThrow(inspectionId);
+        InspectionChecklist checklist = checkListMapper.toEntity(request);
+        checklist.setInspection(inspection);
+        checklistRepository.save(checklist);
+        return checkListMapper.toResponse(checklist);
     }
 
     @Override

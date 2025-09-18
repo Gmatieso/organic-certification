@@ -5,6 +5,8 @@ import com.organic.certification.common.response.ApiResponseEntity;
 import com.organic.certification.inspection.dtos.InspectionRequest;
 import com.organic.certification.inspection.dtos.InspectionResponse;
 import com.organic.certification.inspection.service.InspectionService;
+import com.organic.certification.inspection_checklist.dtos.CheckListRequest;
+import com.organic.certification.inspection_checklist.dtos.CheckListResponse;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -26,6 +28,14 @@ public class InspectionController {
     public ResponseEntity<?> createInspection(@Valid @RequestBody InspectionRequest inspectionRequest) {
         InspectionResponse response = inspectionService.createInspection(inspectionRequest);
         return ApiResponseEntity.success("Inspection created successfully", response);
+    }
+
+    @PostMapping("{inspectionId}/checklists")
+    public ResponseEntity<?> addCheckListItem(
+            @PathVariable UUID inspectionId,
+            @RequestBody @Valid CheckListRequest request){
+        CheckListResponse response = inspectionService.addCheckListItem(inspectionId, request);
+        return ApiResponseEntity.success("CheckListItem added successfully", response);
     }
 
     @PostMapping("{id}/complete")
