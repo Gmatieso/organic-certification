@@ -15,5 +15,5 @@ public interface InspectionService {
     Page<InspectionResponse> getInspections(Pageable pageable);
     InspectionResponse  getInspection(UUID id);
     Inspection getInspectionByIdOrThrow(UUID id);
-   InspectionResponse CompleteInspection(UUID id);
+   InspectionResponse completeInspection(UUID id);
 }
