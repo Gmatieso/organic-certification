@@ -2,10 +2,9 @@ package com.organic.certification.inspection.entity;
 
 import com.organic.certification.common.enums.InspectionEnum;
 import com.organic.certification.farm.entity.Farm;
-import com.organic.certification.inspection_checklist.entity.InspectionChecklist;
+import com.organic.certification.checklist.entity.InspectionChecklist;
 import jakarta.persistence.*;
 import lombok.Data;
-import org.hibernate.annotations.GenericGenerator;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

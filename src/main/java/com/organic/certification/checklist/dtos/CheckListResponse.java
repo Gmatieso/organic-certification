@@ -1,4 +1,4 @@
-package com.organic.certification.inspection_checklist.dtos;
+package com.organic.certification.checklist.dtos;
 
 import java.util.UUID;
 

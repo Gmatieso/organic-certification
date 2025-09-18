@@ -1,8 +1,8 @@
-package com.organic.certification.inspection_checklist.mappers;
+package com.organic.certification.checklist.mappers;
 
-import com.organic.certification.inspection_checklist.dtos.CheckListRequest;
-import com.organic.certification.inspection_checklist.dtos.CheckListResponse;
-import com.organic.certification.inspection_checklist.entity.InspectionChecklist;
+import com.organic.certification.checklist.dtos.CheckListRequest;
+import com.organic.certification.checklist.dtos.CheckListResponse;
+import com.organic.certification.checklist.entity.InspectionChecklist;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

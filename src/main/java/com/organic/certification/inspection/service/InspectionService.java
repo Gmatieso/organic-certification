@@ -3,8 +3,8 @@ package com.organic.certification.inspection.service;
 import com.organic.certification.inspection.dtos.InspectionRequest;
 import com.organic.certification.inspection.dtos.InspectionResponse;
 import com.organic.certification.inspection.entity.Inspection;
-import com.organic.certification.inspection_checklist.dtos.CheckListRequest;
-import com.organic.certification.inspection_checklist.dtos.CheckListResponse;
+import com.organic.certification.checklist.dtos.CheckListRequest;
+import com.organic.certification.checklist.dtos.CheckListResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -23,6 +23,5 @@ public interface InspectionService {
    // checklist-related method
     CheckListResponse addCheckListItem(UUID inspectionId, CheckListRequest request);
     CheckListResponse updateCheckListItem(UUID inspectionId, UUID checklistId,  CheckListRequest request);
-    void deleteCheckListItem(UUID inspectionId, UUID checklistId);
     List<CheckListResponse> getCheckListsItems(UUID inspectionId);
 }

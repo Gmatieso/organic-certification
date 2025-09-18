@@ -1,4 +1,4 @@
-package com.organic.certification.inspection_checklist.dtos;
+package com.organic.certification.checklist.dtos;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

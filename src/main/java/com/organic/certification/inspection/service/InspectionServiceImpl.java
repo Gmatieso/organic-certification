@@ -10,11 +10,11 @@ import com.organic.certification.inspection.dtos.InspectionResponse;
 import com.organic.certification.inspection.entity.Inspection;
 import com.organic.certification.inspection.mappers.InspectionMapper;
 import com.organic.certification.inspection.repository.InspectionRepository;
-import com.organic.certification.inspection_checklist.dtos.CheckListRequest;
-import com.organic.certification.inspection_checklist.dtos.CheckListResponse;
-import com.organic.certification.inspection_checklist.entity.InspectionChecklist;
-import com.organic.certification.inspection_checklist.mappers.CheckListMapper;
-import com.organic.certification.inspection_checklist.repository.ChecklistRepository;
+import com.organic.certification.checklist.dtos.CheckListRequest;
+import com.organic.certification.checklist.dtos.CheckListResponse;
+import com.organic.certification.checklist.entity.InspectionChecklist;
+import com.organic.certification.checklist.mappers.CheckListMapper;
+import com.organic.certification.checklist.repository.ChecklistRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -116,17 +116,22 @@ public class InspectionServiceImpl implements InspectionService {
 
     @Override
     public CheckListResponse updateCheckListItem(UUID inspectionId, UUID checklistId, CheckListRequest request) {
-        return null;
-    }
+        Inspection inspection = getInspectionByIdOrThrow(inspectionId);
+        InspectionChecklist checklist = checklistRepository.findByIdAndInspectionId(checklistId, inspection.getId())
+                .orElseThrow(() -> new ResourceNotFoundException("Checklist not found for inspection"));
 
-    @Override
-    public void deleteCheckListItem(UUID inspectionId, UUID checklistId) {
-
+        checklist.setQuestion(request.question());
+        checklist.setAnswer(request.answer());
+        return checkListMapper.toResponse(checklistRepository.save(checklist));
     }
 
     @Override
     public List<CheckListResponse> getCheckListsItems(UUID inspectionId) {
-        return List.of();
+
+        return checklistRepository.findByInspectionId(inspectionId)
+                .stream()
+                .map(checkListMapper::toResponse)
+                .toList();
     }
 
 
