@@ -28,6 +28,12 @@ public class InspectionController {
         return ApiResponseEntity.success("Inspection created successfully", response);
     }
 
+    @PostMapping("{id}/complete")
+    public ResponseEntity<?> completeInspection(@PathVariable UUID id) {
+        InspectionResponse response = inspectionService.completeInspection(id);
+        return ApiResponseEntity.success("Inspection completed successfully", response);
+    }
+
     @PutMapping("{id}")
     public ResponseEntity<?> updateInspection(@PathVariable UUID id, @Valid @RequestBody InspectionRequest inspectionRequest) {
         InspectionResponse response = inspectionService.updateInspection(id,inspectionRequest);
