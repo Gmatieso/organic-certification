@@ -1,6 +1,5 @@
 package com.organic.certification.inspection.service;
 
-import com.organic.certification.certificate.dtos.CertificateRequest;
 import com.organic.certification.certificate.service.CertificateService;
 import com.organic.certification.common.enums.InspectionEnum;
 import com.organic.certification.common.exception.ResourceNotFoundException;
@@ -11,6 +10,8 @@ import com.organic.certification.inspection.dtos.InspectionResponse;
 import com.organic.certification.inspection.entity.Inspection;
 import com.organic.certification.inspection.mappers.InspectionMapper;
 import com.organic.certification.inspection.repository.InspectionRepository;
+import com.organic.certification.inspection_checklist.dtos.CheckListRequest;
+import com.organic.certification.inspection_checklist.dtos.CheckListResponse;
 import com.organic.certification.inspection_checklist.entity.InspectionChecklist;
 import com.organic.certification.inspection_checklist.repository.ChecklistRepository;
 import lombok.AllArgsConstructor;
@@ -19,7 +20,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -101,6 +101,26 @@ public class InspectionServiceImpl implements InspectionService {
         }
         inspectionRepository.save(inspection);
         return inspectionMapper.toResponse(inspection);
+    }
+
+    @Override
+    public CheckListResponse addCheckListItem(UUID inspectionId, CheckListRequest request) {
+        return null;
+    }
+
+    @Override
+    public CheckListResponse updateCheckListItem(UUID inspectionId, UUID checklistId, CheckListRequest request) {
+        return null;
+    }
+
+    @Override
+    public void deleteCheckListItem(UUID inspectionId, UUID checklistId) {
+
+    }
+
+    @Override
+    public List<CheckListResponse> getCheckListsItems(UUID inspectionId) {
+        return List.of();
     }
 
 
