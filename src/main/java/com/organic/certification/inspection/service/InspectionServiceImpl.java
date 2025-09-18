@@ -1,5 +1,7 @@
 package com.organic.certification.inspection.service;
 
+import com.organic.certification.certificate.dtos.CertificateRequest;
+import com.organic.certification.certificate.service.CertificateService;
 import com.organic.certification.common.enums.InspectionEnum;
 import com.organic.certification.common.exception.ResourceNotFoundException;
 import com.organic.certification.farm.entity.Farm;
@@ -17,6 +19,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -27,6 +30,7 @@ public class InspectionServiceImpl implements InspectionService {
     private final InspectionMapper inspectionMapper;
     private final FarmService farmService;
     private final ChecklistRepository checklistRepository;
+    private final CertificateService certificateService;
 
     @Override
     public InspectionResponse createInspection(InspectionRequest inspectionRequest) {
@@ -91,6 +95,16 @@ public class InspectionServiceImpl implements InspectionService {
         // update status based on score
         if (score >= 80.0) {
             inspection.setStatus(InspectionEnum.APPROVED);
+
+            // Auto-generate certificate
+            CertificateRequest certRequest = new CertificateRequest(
+                    "CERT-" + UUID.randomUUID().toString().substring(0,8), // certfificateNo
+                     LocalDate.now(), // issueDate
+                    LocalDate.now().plusYears(1), // expiryDate
+                    null,   // pdfUrl (to be generated later)
+                    inspection.getFarm().getId()   // farmId
+            );
+            certificateService.createCertificate(certRequest);
         }else {
             inspection.setStatus(InspectionEnum.REJECTED);
         }
