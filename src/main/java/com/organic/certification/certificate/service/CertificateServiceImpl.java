@@ -21,17 +21,6 @@ public class CertificateServiceImpl implements CertificateService {
     private final CertificateMapper certificateMapper;
     private final CertificateRepository certificateRepository;
 
-
-    @Override
-    public CertificateResponse updateCertificate(UUID id, CertificateRequest request) {
-        Certificate certificate = getCertificateByIdOrThrow(id);
-        certificate.setCertificateNo(request.certificateNo());
-        certificate.setExpiryDate(request.expiryDate());
-        certificate.setPdfUrl(request.pdfUrl());
-        certificate.setIssueDate(request.issueDate());
-        return certificateMapper.toResponse(certificateRepository.save(certificate));
-    }
-
     @Override
     public void deleteCertificate(UUID id) {
         Certificate certificate = getCertificateByIdOrThrow(id);

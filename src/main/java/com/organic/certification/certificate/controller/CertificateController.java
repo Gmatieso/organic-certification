@@ -22,11 +22,7 @@ public class CertificateController {
     private final CertificateService certificateService;
 
 
-    @PutMapping("{id}")
-    public ResponseEntity<?> updateCertificate(@PathVariable UUID id, @Valid @RequestBody CertificateRequest certificateRequest){
-        CertificateResponse response = certificateService.updateCertificate(id,certificateRequest);
-        return ApiResponseEntity.success("Certificate Updated successfully", response);
-    }
+
 
     @GetMapping
     public ResponseEntity<?> getCertificate(Pageable pageable){
