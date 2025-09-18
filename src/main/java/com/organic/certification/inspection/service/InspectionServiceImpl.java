@@ -1,5 +1,6 @@
 package com.organic.certification.inspection.service;
 
+import com.organic.certification.common.enums.InspectionEnum;
 import com.organic.certification.common.exception.ResourceNotFoundException;
 import com.organic.certification.farm.entity.Farm;
 import com.organic.certification.farm.service.FarmService;
@@ -15,8 +16,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -70,13 +71,32 @@ public class InspectionServiceImpl implements InspectionService {
     }
 
     @Override
-    public InspectionResponse CompleteInspection(UUID id) {
-//        Inspection inspection = getInspectionByIdOrThrow(id);
-//
-//        Optional<InspectionChecklist> checklists = checklistRepository.findById(id);
-//        long yesCount = checklists.stream().filter(c -> "YES".equalsIgnoreCase(String.valueOf(c.getAnswer()))).count();
-//        double score = ((double) yesCount / checklists.size()) * 100;
-//
-        return null;
+    public InspectionResponse completeInspection(UUID id) {
+        Inspection inspection = getInspectionByIdOrThrow(id);
+
+        // fetch checklist items for this inspection
+       List<InspectionChecklist> checklists = checklistRepository.findByInspectionId(id);
+
+       if(checklists.isEmpty()){
+           throw new ResourceNotFoundException("Inspection has no checklist items");
+       }
+
+       long yesCount = checklists.stream()
+               .filter(InspectionChecklist::getAnswer) // true = Yes
+               .count();
+
+        double score = ((double) yesCount / checklists.size()) * 100;
+        inspection.setComplianceScore(score);
+
+        // update status based on score
+        if (score >= 80.0) {
+            inspection.setStatus(InspectionEnum.APPROVED);
+        }else {
+            inspection.setStatus(InspectionEnum.REJECTED);
+        }
+        inspectionRepository.save(inspection);
+        return inspectionMapper.toResponse(inspection);
     }
+
+
 }
