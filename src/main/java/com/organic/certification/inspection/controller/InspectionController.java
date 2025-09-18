@@ -5,8 +5,7 @@ import com.organic.certification.common.response.ApiResponseEntity;
 import com.organic.certification.inspection.dtos.InspectionRequest;
 import com.organic.certification.inspection.dtos.InspectionResponse;
 import com.organic.certification.inspection.service.InspectionService;
-import com.organic.certification.checklist.dtos.CheckListRequest;
-import com.organic.certification.checklist.dtos.CheckListResponse;
+
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -14,7 +13,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -30,23 +28,8 @@ public class InspectionController {
         return ApiResponseEntity.success("Inspection created successfully", response);
     }
 
-    @PostMapping("/{inspectionId}/checklists")
-    public ResponseEntity<?> addCheckListItem(
-            @PathVariable UUID inspectionId,
-            @RequestBody @Valid CheckListRequest request){
-        CheckListResponse response = inspectionService.addCheckListItem(inspectionId, request);
-        return ApiResponseEntity.success("CheckListItem added successfully", response);
-    }
 
-    @PutMapping("/{checklistId}")
-    public ResponseEntity<?> updateCheckListItem(
-            @PathVariable UUID inspectionId,
-            @PathVariable UUID checklistId,
-            @RequestBody @Valid CheckListRequest request
-    ){
-        CheckListResponse response = inspectionService.updateCheckListItem(inspectionId, checklistId, request);
-        return ApiResponseEntity.success("CheckListItem modified successfully", response);
-    }
+
 
     @PostMapping("{id}/complete")
     public ResponseEntity<?> completeInspection(@PathVariable UUID id) {
@@ -54,11 +37,7 @@ public class InspectionController {
         return ApiResponseEntity.success("Inspection completed successfully", response);
     }
 
-    @GetMapping("/inspectionId}")
-    public ResponseEntity<?> getCheckListItems(@PathVariable UUID inspectionId){
-        List<CheckListResponse> checkList = inspectionService.getCheckListsItems(inspectionId);
-        return ApiResponseEntity.success("CheckListItems retrieved successfully", checkList);
-    }
+
 
     @PutMapping("{id}")
     public ResponseEntity<?> updateInspection(@PathVariable UUID id, @Valid @RequestBody InspectionRequest inspectionRequest) {

@@ -3,12 +3,10 @@ package com.organic.certification.inspection.service;
 import com.organic.certification.inspection.dtos.InspectionRequest;
 import com.organic.certification.inspection.dtos.InspectionResponse;
 import com.organic.certification.inspection.entity.Inspection;
-import com.organic.certification.checklist.dtos.CheckListRequest;
-import com.organic.certification.checklist.dtos.CheckListResponse;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import java.util.List;
 import java.util.UUID;
 
 public interface InspectionService {
@@ -20,8 +18,4 @@ public interface InspectionService {
     Inspection getInspectionByIdOrThrow(UUID id);
    InspectionResponse completeInspection(UUID id);
 
-   // checklist-related method
-    CheckListResponse addCheckListItem(UUID inspectionId, CheckListRequest request);
-    CheckListResponse updateCheckListItem(UUID inspectionId, UUID checklistId,  CheckListRequest request);
-    List<CheckListResponse> getCheckListsItems(UUID inspectionId);
 }

@@ -10,8 +10,6 @@ import com.organic.certification.inspection.dtos.InspectionResponse;
 import com.organic.certification.inspection.entity.Inspection;
 import com.organic.certification.inspection.mappers.InspectionMapper;
 import com.organic.certification.inspection.repository.InspectionRepository;
-import com.organic.certification.checklist.dtos.CheckListRequest;
-import com.organic.certification.checklist.dtos.CheckListResponse;
 import com.organic.certification.checklist.entity.InspectionChecklist;
 import com.organic.certification.checklist.mappers.CheckListMapper;
 import com.organic.certification.checklist.repository.ChecklistRepository;
@@ -32,7 +30,15 @@ public class InspectionServiceImpl implements InspectionService {
     private final FarmService farmService;
     private final ChecklistRepository checklistRepository;
     private final CertificateService certificateService;
-    private final CheckListMapper checkListMapper;
+
+    // Default checklist questions
+    private static  final List<String> DEFAULT_QUESTIONS = List.of(
+            "Any synthetic inputs in the last 36 months?",
+            "Adequate buffer zones?",
+            "Organic seed or permitted exceptions?",
+            "Compost/soil fertility managed organically?",
+            "Recordkeeping/logs available?"
+    );
 
     @Override
     public InspectionResponse createInspection(InspectionRequest inspectionRequest) {
@@ -104,35 +110,5 @@ public class InspectionServiceImpl implements InspectionService {
         inspectionRepository.save(inspection);
         return inspectionMapper.toResponse(inspection);
     }
-
-    @Override
-    public CheckListResponse addCheckListItem(UUID inspectionId, CheckListRequest request) {
-        Inspection inspection = getInspectionByIdOrThrow(inspectionId);
-        InspectionChecklist checklist = checkListMapper.toEntity(request);
-        checklist.setInspection(inspection);
-        checklistRepository.save(checklist);
-        return checkListMapper.toResponse(checklist);
-    }
-
-    @Override
-    public CheckListResponse updateCheckListItem(UUID inspectionId, UUID checklistId, CheckListRequest request) {
-        Inspection inspection = getInspectionByIdOrThrow(inspectionId);
-        InspectionChecklist checklist = checklistRepository.findByIdAndInspectionId(checklistId, inspection.getId())
-                .orElseThrow(() -> new ResourceNotFoundException("Checklist not found for inspection"));
-
-        checklist.setQuestion(request.question());
-        checklist.setAnswer(request.answer());
-        return checkListMapper.toResponse(checklistRepository.save(checklist));
-    }
-
-    @Override
-    public List<CheckListResponse> getCheckListsItems(UUID inspectionId) {
-
-        return checklistRepository.findByInspectionId(inspectionId)
-                .stream()
-                .map(checkListMapper::toResponse)
-                .toList();
-    }
-
 
 }
