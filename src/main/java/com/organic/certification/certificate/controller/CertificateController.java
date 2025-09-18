@@ -21,11 +21,6 @@ public class CertificateController {
     public static  final String PATH = ApiConfig.BASE_API_PATH + "certificate";
     private final CertificateService certificateService;
 
-    @PostMapping
-    public ResponseEntity<?> createCertificate( @Valid @RequestBody CertificateRequest certificateRequest){
-        CertificateResponse response = certificateService.createCertificate(certificateRequest);
-        return ApiResponseEntity.success("Certificate Created successfully", response);
-    }
 
     @PutMapping("{id}")
     public ResponseEntity<?> updateCertificate(@PathVariable UUID id, @Valid @RequestBody CertificateRequest certificateRequest){

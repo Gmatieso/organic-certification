@@ -6,8 +6,6 @@ import com.organic.certification.certificate.entity.Certificate;
 import com.organic.certification.certificate.mappers.CertificateMapper;
 import com.organic.certification.certificate.repository.CertificateRepository;
 import com.organic.certification.common.exception.ResourceNotFoundException;
-import com.organic.certification.farm.entity.Farm;
-import com.organic.certification.farm.service.FarmService;
 import com.organic.certification.inspection.entity.Inspection;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -21,16 +19,8 @@ import java.util.UUID;
 @AllArgsConstructor
 public class CertificateServiceImpl implements CertificateService {
     private final CertificateMapper certificateMapper;
-    private final FarmService farmService;
     private final CertificateRepository certificateRepository;
 
-    @Override
-    public CertificateResponse createCertificate(CertificateRequest request) {
-        Certificate certificate = certificateMapper.toEntity(request);
-        Farm farm = farmService.getFarmByIdOrThrow(request.farmId());
-        certificate.setFarm(farm);
-        return certificateMapper.toResponse(certificateRepository.save(certificate));
-    }
 
     @Override
     public CertificateResponse updateCertificate(UUID id, CertificateRequest request) {

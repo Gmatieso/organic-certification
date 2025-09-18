@@ -10,7 +10,6 @@ import org.springframework.data.domain.Pageable;
 import java.util.UUID;
 
 public interface CertificateService {
-    CertificateResponse createCertificate(CertificateRequest request);
     CertificateResponse updateCertificate(UUID id, CertificateRequest request);
     void deleteCertificate(UUID id);
     Page<CertificateResponse> getCertificates(Pageable pageable);
