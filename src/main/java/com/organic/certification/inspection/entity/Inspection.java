@@ -24,7 +24,7 @@ public class Inspection {
     private String inspectorName;
 
     @Enumerated(EnumType.STRING)
-    private InspectionEnum status;
+    private InspectionEnum status = InspectionEnum.DRAFT;
 
     private Double complianceScore;
 

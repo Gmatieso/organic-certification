@@ -11,7 +11,6 @@ import com.organic.certification.inspection.entity.Inspection;
 import com.organic.certification.inspection.mappers.InspectionMapper;
 import com.organic.certification.inspection.repository.InspectionRepository;
 import com.organic.certification.checklist.entity.InspectionChecklist;
-import com.organic.certification.checklist.mappers.CheckListMapper;
 import com.organic.certification.checklist.repository.ChecklistRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -45,6 +44,8 @@ public class InspectionServiceImpl implements InspectionService {
         Inspection inspection = inspectionMapper.toEntity(inspectionRequest);
         Farm farm  = farmService.getFarmByIdOrThrow(inspectionRequest.farmId());
         inspection.setFarm(farm);
+
+        inspection.setStatus(InspectionEnum.DRAFT);
 
         Inspection saved = inspectionRepository.save(inspection);
 
@@ -106,6 +107,8 @@ public class InspectionServiceImpl implements InspectionService {
            throw new ResourceNotFoundException("Inspection has no checklist items");
        }
 
+       inspection.setStatus(InspectionEnum.SUBMITTED);
+
        long yesCount = checklists.stream()
                .filter(InspectionChecklist::getAnswer) // true = Yes
                .count();
@@ -120,8 +123,8 @@ public class InspectionServiceImpl implements InspectionService {
         }else {
             inspection.setStatus(InspectionEnum.REJECTED);
         }
-        inspectionRepository.save(inspection);
-        return inspectionMapper.toResponse(inspection);
+
+        return inspectionMapper.toResponse(inspectionRepository.save(inspection));
     }
 
 }
