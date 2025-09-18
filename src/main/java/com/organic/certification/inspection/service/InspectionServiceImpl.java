@@ -68,8 +68,6 @@ public class InspectionServiceImpl implements InspectionService {
         Inspection inspection = getInspectionByIdOrThrow(id);
         inspection.setDate(inspectionRequest.date());
         inspection.setInspectorName(inspectionRequest.inspectorName());
-        inspection.setStatus(inspectionRequest.status());
-        inspection.setComplianceScore(inspectionRequest.complianceScore());
         return inspectionMapper.toResponse(inspectionRepository.save(inspection));
     }
 
