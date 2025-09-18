@@ -21,9 +21,6 @@ public class CertificateController {
     public static  final String PATH = ApiConfig.BASE_API_PATH + "certificate";
     private final CertificateService certificateService;
 
-
-
-
     @GetMapping
     public ResponseEntity<?> getCertificate(Pageable pageable){
         Page<CertificateResponse> response = certificateService.getCertificates(pageable);
