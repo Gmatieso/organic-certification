@@ -1,10 +1,13 @@
 package com.organic.certification.inspection_checklist.dtos;
 
-import java.util.UUID;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
 
 public record CheckListRequest(
+        @NotBlank(message = "Question is required")
         String question,
-        Boolean answer,
-        UUID inspection_id
+        @NotNull(message = "Answer must be true or false")
+        Boolean answer
 ) {
 }
