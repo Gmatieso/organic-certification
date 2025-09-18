@@ -9,7 +9,6 @@ import org.springframework.data.domain.Pageable;
 import java.util.UUID;
 
 public interface CertificateService {
-    void deleteCertificate(UUID id);
     Page<CertificateResponse> getCertificates(Pageable pageable);
     CertificateResponse getCertificate(UUID id);
     Certificate getCertificateByIdOrThrow(UUID id);

@@ -22,12 +22,6 @@ public class CertificateServiceImpl implements CertificateService {
     private final CertificateRepository certificateRepository;
 
     @Override
-    public void deleteCertificate(UUID id) {
-        Certificate certificate = getCertificateByIdOrThrow(id);
-        certificateRepository.delete(certificate);
-    }
-
-    @Override
     public Page<CertificateResponse> getCertificates(Pageable pageable) {
         Page<Certificate> certificatesPage = certificateRepository.findAll(pageable);
         return certificatesPage.map(certificateMapper::toResponse);
