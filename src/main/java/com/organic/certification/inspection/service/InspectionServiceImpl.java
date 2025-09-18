@@ -95,16 +95,7 @@ public class InspectionServiceImpl implements InspectionService {
         // update status based on score
         if (score >= 80.0) {
             inspection.setStatus(InspectionEnum.APPROVED);
-
-            // Auto-generate certificate
-            CertificateRequest certRequest = new CertificateRequest(
-                    "CERT-" + UUID.randomUUID().toString().substring(0,8), // certfificateNo
-                     LocalDate.now(), // issueDate
-                    LocalDate.now().plusYears(1), // expiryDate
-                    null,   // pdfUrl (to be generated later)
-                    inspection.getFarm().getId()   // farmId
-            );
-            certificateService.createCertificate(certRequest);
+            certificateService.generateCertificate(inspection);
         }else {
             inspection.setStatus(InspectionEnum.REJECTED);
         }
