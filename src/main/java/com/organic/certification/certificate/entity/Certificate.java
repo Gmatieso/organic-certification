@@ -1,6 +1,7 @@
 package com.organic.certification.certificate.entity;
 
 import com.organic.certification.farm.entity.Farm;
+import com.organic.certification.inspection.entity.Inspection;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -17,7 +18,8 @@ public class Certificate {
     @Column(name = "id", updatable = false, nullable = false)
     private UUID id;
 
-    private String certificateNo;
+    @Column(name = "certificate_number", unique = true, nullable = false)
+    private String certificateNumber;
 
     private LocalDate issueDate;
 
@@ -25,7 +27,10 @@ public class Certificate {
 
     private String pdfUrl;
 
+    private Double complianceScore;
+
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "farm_id", nullable = false)
-    private Farm farm;
+    @JoinColumn(name = "inspection_id", nullable = false)
+    private Inspection inspection;
 }
+
