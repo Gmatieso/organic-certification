@@ -12,10 +12,7 @@ public interface InspectionMapper {
     @Mapping(target = "farm", ignore = true)
     Inspection toEntity(InspectionRequest inspectionRequest);
 
-    @Mapping(target = "farmResponse", ignore = true)
+    @Mapping(source = "farm", target = "farmResponse")
     InspectionResponse toResponse(Inspection inspection);
-
-    /*TODO: map farm entity  */
-    /*TODO: map farm response  */
 
 }

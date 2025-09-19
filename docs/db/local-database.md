@@ -8,7 +8,8 @@ Organic Certification backend uses PostgreSQL as its local database to store Far
 - **Port**: `5432`
 - **Driver**: PostgreSQL JDBC (`jdbc:postgresql://`)
 
-## Tables
+## Tables and UML Diagram
+ ![img.png](img.png)
 
 
 ## Docker Setup

@@ -2,10 +2,9 @@ package com.organic.certification.inspection.entity;
 
 import com.organic.certification.common.enums.InspectionEnum;
 import com.organic.certification.farm.entity.Farm;
-import com.organic.certification.inspection_checklist.entity.InspectionChecklist;
+import com.organic.certification.checklist.entity.InspectionChecklist;
 import jakarta.persistence.*;
 import lombok.Data;
-import org.hibernate.annotations.GenericGenerator;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -25,7 +24,7 @@ public class Inspection {
     private String inspectorName;
 
     @Enumerated(EnumType.STRING)
-    private InspectionEnum status;
+    private InspectionEnum status = InspectionEnum.DRAFT;
 
     private Double complianceScore;
 
@@ -36,4 +35,11 @@ public class Inspection {
 
     @OneToMany(mappedBy = "inspection", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<InspectionChecklist> checklist = new ArrayList<>();
+
+    @PrePersist
+    public void prePersist(){
+        if (date == null) {
+            date = LocalDate.now();
+        }
+    }
 }

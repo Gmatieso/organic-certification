@@ -1,4 +1,4 @@
-package com.organic.certification.inspection_checklist.entity;
+package com.organic.certification.checklist.entity;
 
 import com.organic.certification.inspection.entity.Inspection;
 import jakarta.persistence.*;
@@ -17,7 +17,7 @@ public class InspectionChecklist {
 
     private String question;
 
-    private Boolean answer;
+    private Boolean answer = false;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "inspection_id", nullable = false)

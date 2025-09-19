@@ -4,5 +4,5 @@ public enum InspectionEnum {
     DRAFT,
     SUBMITTED,
     APPROVED,
-    REJECTED,
+    REJECTED
 }

@@ -1,5 +1,7 @@
 package com.organic.certification.inspection.service;
 
+import com.organic.certification.certificate.service.CertificateService;
+import com.organic.certification.common.enums.InspectionEnum;
 import com.organic.certification.common.exception.ResourceNotFoundException;
 import com.organic.certification.farm.entity.Farm;
 import com.organic.certification.farm.service.FarmService;
@@ -8,11 +10,15 @@ import com.organic.certification.inspection.dtos.InspectionResponse;
 import com.organic.certification.inspection.entity.Inspection;
 import com.organic.certification.inspection.mappers.InspectionMapper;
 import com.organic.certification.inspection.repository.InspectionRepository;
+import com.organic.certification.checklist.entity.InspectionChecklist;
+import com.organic.certification.checklist.repository.ChecklistRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -21,13 +27,41 @@ public class InspectionServiceImpl implements InspectionService {
     private final InspectionRepository inspectionRepository;
     private final InspectionMapper inspectionMapper;
     private final FarmService farmService;
+    private final ChecklistRepository checklistRepository;
+    private final CertificateService certificateService;
+
+    // Default checklist questions
+    private static  final List<String> DEFAULT_QUESTIONS = List.of(
+            "Any synthetic inputs in the last 36 months?",
+            "Adequate buffer zones?",
+            "Organic seed or permitted exceptions?",
+            "Compost/soil fertility managed organically?",
+            "Recordkeeping/logs available?"
+    );
 
     @Override
     public InspectionResponse createInspection(InspectionRequest inspectionRequest) {
         Inspection inspection = inspectionMapper.toEntity(inspectionRequest);
         Farm farm  = farmService.getFarmByIdOrThrow(inspectionRequest.farmId());
         inspection.setFarm(farm);
-        return inspectionMapper.toResponse(inspectionRepository.save(inspection));
+
+        inspection.setStatus(InspectionEnum.DRAFT);
+
+        Inspection saved = inspectionRepository.save(inspection);
+
+        // generate default checklist
+        List<InspectionChecklist> checklists = DEFAULT_QUESTIONS.stream()
+                .map(q -> {
+                    InspectionChecklist c = new InspectionChecklist();
+                    c.setQuestion(q);
+                    c.setAnswer(null); // unanswered yet
+                    c.setInspection(saved);
+                    return c;
+                }).toList();
+        checklistRepository.saveAll(checklists);
+
+        saved.setChecklist(checklists);
+        return inspectionMapper.toResponse(saved);
     }
 
     @Override
@@ -35,8 +69,6 @@ public class InspectionServiceImpl implements InspectionService {
         Inspection inspection = getInspectionByIdOrThrow(id);
         inspection.setDate(inspectionRequest.date());
         inspection.setInspectorName(inspectionRequest.inspectorName());
-        inspection.setStatus(inspectionRequest.status());
-        inspection.setComplianceScore(inspectionRequest.complianceScore());
         return inspectionMapper.toResponse(inspectionRepository.save(inspection));
     }
 
@@ -63,4 +95,36 @@ public class InspectionServiceImpl implements InspectionService {
         return inspectionRepository.findById(id)
                 .orElseThrow(()-> new ResourceNotFoundException("Inspection with id" + " " + id + " " + "not found"));
     }
+
+    @Override
+    public InspectionResponse completeInspection(UUID id) {
+        Inspection inspection = getInspectionByIdOrThrow(id);
+
+        // fetch checklist items for this inspection
+       List<InspectionChecklist> checklists = checklistRepository.findByInspectionId(id);
+
+       if(checklists.isEmpty()){
+           throw new ResourceNotFoundException("Inspection has no checklist items");
+       }
+
+       inspection.setStatus(InspectionEnum.SUBMITTED);
+
+       long yesCount = checklists.stream()
+               .filter(InspectionChecklist::getAnswer) // true = Yes
+               .count();
+
+        double score = ((double) yesCount / checklists.size()) * 100;
+        inspection.setComplianceScore(score);
+
+        // update status based on score
+        if (score >= 80.0) {
+            inspection.setStatus(InspectionEnum.APPROVED);
+            certificateService.generateCertificate(inspection);
+        }else {
+            inspection.setStatus(InspectionEnum.REJECTED);
+        }
+
+        return inspectionMapper.toResponse(inspectionRepository.save(inspection));
+    }
+
 }

@@ -8,8 +8,6 @@ import java.util.UUID;
 public record InspectionRequest(
         LocalDate date,
         String inspectorName,
-        InspectionEnum status,
-        Double complianceScore,
         UUID farmId
         ) {
 }

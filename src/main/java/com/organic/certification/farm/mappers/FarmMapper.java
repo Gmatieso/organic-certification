@@ -16,7 +16,7 @@ public interface FarmMapper {
     @Mapping(target = "certificate", ignore = true)
     Farm toEntity(FarmRequest farmRequest);
 
-    @Mapping(target = "farmerResponse",  ignore = true)
+    @Mapping(source = "farmer" , target = "farmerResponse")
     FarmResponse toResponse(Farm farm);
 
     /*TODO: map farmer Entity  */

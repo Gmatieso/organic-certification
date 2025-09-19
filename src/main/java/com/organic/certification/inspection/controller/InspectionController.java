@@ -5,11 +5,11 @@ import com.organic.certification.common.response.ApiResponseEntity;
 import com.organic.certification.inspection.dtos.InspectionRequest;
 import com.organic.certification.inspection.dtos.InspectionResponse;
 import com.organic.certification.inspection.service.InspectionService;
+
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,6 +27,15 @@ public class InspectionController {
         InspectionResponse response = inspectionService.createInspection(inspectionRequest);
         return ApiResponseEntity.success("Inspection created successfully", response);
     }
+
+
+    @PostMapping("/{id}/complete")
+    public ResponseEntity<?> completeInspection(@PathVariable UUID id) {
+        InspectionResponse response = inspectionService.completeInspection(id);
+        return ApiResponseEntity.success("Inspection completed successfully", response);
+    }
+
+
 
     @PutMapping("{id}")
     public ResponseEntity<?> updateInspection(@PathVariable UUID id, @Valid @RequestBody InspectionRequest inspectionRequest) {

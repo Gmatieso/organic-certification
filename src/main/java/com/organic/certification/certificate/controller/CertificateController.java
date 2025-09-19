@@ -21,18 +21,6 @@ public class CertificateController {
     public static  final String PATH = ApiConfig.BASE_API_PATH + "certificate";
     private final CertificateService certificateService;
 
-    @PostMapping
-    public ResponseEntity<?> createCertificate( @Valid @RequestBody CertificateRequest certificateRequest){
-        CertificateResponse response = certificateService.createCertificate(certificateRequest);
-        return ApiResponseEntity.success("Certificate Created successfully", response);
-    }
-
-    @PutMapping("{id}")
-    public ResponseEntity<?> updateCertificate(@PathVariable UUID id, @Valid @RequestBody CertificateRequest certificateRequest){
-        CertificateResponse response = certificateService.updateCertificate(id,certificateRequest);
-        return ApiResponseEntity.success("Certificate Updated successfully", response);
-    }
-
     @GetMapping
     public ResponseEntity<?> getCertificate(Pageable pageable){
         Page<CertificateResponse> response = certificateService.getCertificates(pageable);
@@ -43,12 +31,6 @@ public class CertificateController {
     public ResponseEntity<?> getCertificateById(@PathVariable UUID id){
         CertificateResponse response = certificateService.getCertificate(id);
         return ApiResponseEntity.success("Certificate retrieved successfully", response);
-    }
-
-    @DeleteMapping("{id}")
-    public ResponseEntity<?> deleteCertificate(@PathVariable UUID id){
-        certificateService.deleteCertificate(id);
-        return ApiResponseEntity.success("Certificate deleted successfully", null);
     }
 
 }

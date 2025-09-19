@@ -1,6 +1,7 @@
 package com.organic.certification.field.dtos;
 
 import com.organic.certification.farm.dtos.FarmResponse;
+import com.organic.certification.farm.dtos.FarmResponseBasic;
 
 import java.util.UUID;
 
@@ -9,6 +10,6 @@ public record FieldResponse(
         String name,
         String crop,
         Double areaHa,
-        FarmResponse farmResponse
+        FarmResponseBasic farmResponse
         ) {
 }
