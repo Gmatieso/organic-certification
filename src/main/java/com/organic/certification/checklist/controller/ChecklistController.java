@@ -1,6 +1,7 @@
 package com.organic.certification.checklist.controller;
 
 import com.organic.certification.checklist.dtos.CheckListRequest;
+import com.organic.certification.checklist.dtos.CheckListResponse;
 import com.organic.certification.checklist.entity.InspectionChecklist;
 import com.organic.certification.checklist.service.ChecklistService;
 import com.organic.certification.common.config.ApiConfig;
@@ -21,7 +22,7 @@ public class ChecklistController {
 
     @GetMapping("/inspection/{inspectionId}")
     public ResponseEntity<?> getChecklist(@PathVariable UUID inspectionId) {
-        List<InspectionChecklist> checklist = checklistService.getChecklistByInspection(inspectionId);
+        List<CheckListResponse> checklist = checklistService.getChecklistByInspection(inspectionId);
         return ApiResponseEntity.success("Checklist retrieved successfully", checklist);
     }
 

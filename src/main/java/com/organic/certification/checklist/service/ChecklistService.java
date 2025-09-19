@@ -1,7 +1,9 @@
 package com.organic.certification.checklist.service;
 
 import com.organic.certification.checklist.dtos.CheckListRequest;
+import com.organic.certification.checklist.dtos.CheckListResponse;
 import com.organic.certification.checklist.entity.InspectionChecklist;
+import com.organic.certification.checklist.mappers.CheckListMapper;
 import com.organic.certification.checklist.repository.ChecklistRepository;
 import com.organic.certification.common.exception.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -14,9 +16,13 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class ChecklistService {
     private final ChecklistRepository checklistRepository;
+    private final CheckListMapper  checkListMapper;
 
-    public List<InspectionChecklist> getChecklistByInspection(UUID inspectionId) {
-        return checklistRepository.findByInspectionId(inspectionId);
+    public List<CheckListResponse> getChecklistByInspection(UUID inspectionId) {
+        List<InspectionChecklist> checklists = checklistRepository.findByInspectionId(inspectionId);
+        return checklists.stream()
+                .map(checkListMapper::toResponse)
+                .toList();
     }
 
     public void submitAnswers(List<CheckListRequest> answers) {
