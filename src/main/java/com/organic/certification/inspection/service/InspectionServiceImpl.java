@@ -1,5 +1,6 @@
 package com.organic.certification.inspection.service;
 
+import com.organic.certification.certificate.dtos.CertificateResponse;
 import com.organic.certification.certificate.service.CertificateService;
 import com.organic.certification.common.enums.InspectionEnum;
 import com.organic.certification.common.exception.ResourceNotFoundException;
@@ -119,7 +120,7 @@ public class InspectionServiceImpl implements InspectionService {
         // update status based on score
         if (score >= 80.0) {
             inspection.setStatus(InspectionEnum.APPROVED);
-            certificateService.generateCertificate(inspection);
+            CertificateResponse certResponse = certificateService.generateCertificate(inspection);
         }else {
             inspection.setStatus(InspectionEnum.REJECTED);
         }

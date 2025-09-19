@@ -9,11 +9,10 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface CertificateMapper {
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "farm", ignore = true)
     Certificate toEntity(CertificateRequest certificateRequest);
 
     @Mapping(target = "farmResponse", ignore = true)
-    @Mapping(source = "certificateNo", target ="certificateNo")
+    @Mapping(source = "certificateNumber", target ="certificateNumber")
     CertificateResponse toResponse(Certificate certificate);
 
     /*TODO: map farm entity */

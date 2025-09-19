@@ -37,6 +37,4 @@ public class Farm {
     @OneToMany(mappedBy = "farm", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Inspection> inspections = new ArrayList<>();
 
-    @OneToOne(mappedBy = "farm", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Certificate certificate;
 }
