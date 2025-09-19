@@ -13,5 +13,5 @@ public interface CertificateService {
     CertificateResponse getCertificate(UUID id);
     Certificate getCertificateByIdOrThrow(UUID id);
     CertificateResponse generateCertificate(Inspection inspection);
-    void generateCertificatePdf(Certificate certificate);
+    String generateCertificatePdf(Certificate certificate);
 }

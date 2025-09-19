@@ -16,6 +16,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.time.LocalDate;
 import java.util.UUID;
@@ -58,7 +59,9 @@ public class CertificateServiceImpl implements CertificateService {
        Certificate  savedCert = certificateRepository.save(certificate);
 
         // generate PDF and store
-         generateCertificatePdf(savedCert);
+        String pdfpath =  generateCertificatePdf(savedCert);
+        savedCert.setPdfUrl(pdfpath);
+        savedCert = certificateRepository.save(savedCert); // update with URL
 
         return CertificateResponse.builder()
                 .id(savedCert.getId())
@@ -71,9 +74,18 @@ public class CertificateServiceImpl implements CertificateService {
 
     }
 
-    public void generateCertificatePdf(Certificate cert) {
-        String fileName = "certificates/" + cert.getCertificateNumber() + ".pdf";
-        try (FileOutputStream fos = new FileOutputStream(fileName)) {
+    public String generateCertificatePdf(Certificate cert) {
+        try {
+            String directory = "certificates";
+            File dir = new File(directory);
+            if (!dir.exists()) {
+                dir.mkdirs(); // create directory if missing
+            }
+
+            String filePath =  directory + File.separator  + cert.getCertificateNumber() + ".pdf";
+
+
+        try (FileOutputStream fos = new FileOutputStream(filePath)) {
             Document document = new Document();
             PdfWriter.getInstance(document, fos);
             document.open();
@@ -92,6 +104,8 @@ public class CertificateServiceImpl implements CertificateService {
             document.add(new Paragraph("Compliance Score: " + cert.getComplianceScore() + "%", textFont));
 
             document.close();
+        }
+        return filePath;  // return absolute/relative path
         } catch (Exception e) {
             throw new RuntimeException("Failed to generate certificate PDF", e);
         }

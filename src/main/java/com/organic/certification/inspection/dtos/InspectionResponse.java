@@ -1,5 +1,6 @@
 package com.organic.certification.inspection.dtos;
 
+import com.organic.certification.certificate.dtos.CertificateResponse;
 import com.organic.certification.common.enums.InspectionEnum;
 import com.organic.certification.farm.dtos.FarmResponse;
 import com.organic.certification.farm.dtos.FarmResponseBasic;
@@ -13,5 +14,6 @@ public record InspectionResponse(
         InspectionEnum status,
         String inspectorName,
         FarmResponseBasic farmResponse
+//        CertificateResponse certificateResponse
         ) {
 }
