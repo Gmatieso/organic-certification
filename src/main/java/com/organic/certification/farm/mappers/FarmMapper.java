@@ -13,7 +13,7 @@ public interface FarmMapper {
     @Mapping(target = "farmer", ignore = true)
     @Mapping(target = "fields", ignore = true)
     @Mapping(target = "inspections", ignore = true)
-    @Mapping(target = "certificate", ignore = true)
+//    @Mapping(target = "certificate", ignore = true)
     Farm toEntity(FarmRequest farmRequest);
 
     @Mapping(source = "farmer" , target = "farmerResponse")
