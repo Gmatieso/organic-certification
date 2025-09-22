@@ -25,9 +25,11 @@ After starting the Springboot application, Swagger is accessible at:
 - Swagger UI (interactive docs)
     - http://localhost:8081/swagger-ui.html
     - http://localhost:8081/swagger-ui/index.html
+    - https://organic-certification-production.up.railway.app/swagger-ui/index.html
 - Both resolve to the same UI
 - OpenAPI JSON spec
     - http://localhost:8081/apidocs
+    - https://organic-certification-production.up.railway.app/v3/api-docs
 ## Use this command to access your db in docker
 docker exec -it postgres-organic psql -U *your .env config user* -d *your .env config database*
 
