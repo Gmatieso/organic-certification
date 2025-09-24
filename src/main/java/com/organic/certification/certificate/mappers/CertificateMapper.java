@@ -11,8 +11,8 @@ public interface CertificateMapper {
     @Mapping(target = "id", ignore = true)
     Certificate toEntity(CertificateRequest certificateRequest);
 
-    @Mapping(target = "farmResponse", ignore = true)
     @Mapping(source = "certificateNumber", target ="certificateNumber")
+    @Mapping(source = "complianceScore", target="complianceScore")
     CertificateResponse toResponse(Certificate certificate);
 
     /*TODO: map farm entity */

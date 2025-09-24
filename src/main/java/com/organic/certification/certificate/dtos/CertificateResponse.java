@@ -13,5 +13,6 @@ public record CertificateResponse(
         LocalDate issueDate,
         LocalDate expiryDate,
         String pdfUrl,
+        Double complianceScore,
         FarmResponse farmResponse) {
 }
