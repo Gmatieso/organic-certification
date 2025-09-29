@@ -41,7 +41,6 @@ public class FarmerServiceImpl implements FarmerService {
         farmer.setName(request.name());
         farmer.setEmail(request.email());
         farmer.setPhone(request.phone());
-        farmer.setEmail(request.email());
         farmer.setCounty(request.county());
 
         Farmer updatedFarmer = farmerRepository.save(farmer);
