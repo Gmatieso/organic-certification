@@ -6,7 +6,7 @@ Organic Certification backend uses PostgreSQL as its local database to store Far
 - **User**: `configure own on the .env file`
 - **Password**: `configure own on the .env file`
 - **Port**: `5432`
-- **Driver**: PostgreSQL JDBC (`jdbc:postgresql://`)
+- **Driver**: PostgreSQL JDBC (`"jdbc:postgresql://postgres-db:5432/${POSTGRES_DB}`)
 
 ## Tables and UML Diagram
  ![img.png](img.png)
